@@ -24,7 +24,7 @@ $user = $_SESSION['user'];
     </style>
 </head>
 <body>
-    <?php include 'navbar-user.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <div class="container mt-5">
         <h2>Welcome, <?php echo htmlspecialchars($user['firstname'] . " " . $user['lastname']); ?>!</h2>
