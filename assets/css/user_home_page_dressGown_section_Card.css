@@ -1,0 +1,185 @@
+/* Add these hover effects to your style.css */
+
+/* Product Card Base Styles with Hover */
+.shop-card {
+  background: var(--white);
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  transition: var(--transition-2);
+  cursor: pointer;
+}
+
+/* Card Hover Effect - Lift and Shadow */
+.shop-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px var(--black_15);
+}
+
+/* Image Zoom on Hover */
+.shop-card .card-banner img {
+  transition: var(--transition-2);
+}
+
+.shop-card:hover .card-banner img {
+  transform: scale(1.1);
+}
+
+/* Badge Hover Effect */
+.shop-card .badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: var(--hoockers-green);
+  color: var(--white);
+  font-size: var(--fs-9);
+  font-weight: var(--fw-700);
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: var(--radius-3);
+  letter-spacing: 0.5px;
+  transition: var(--transition-1);
+}
+
+.shop-card:hover .badge {
+  background-color: var(--black);
+}
+
+/* Card Actions - Slide in from Right */
+.shop-card .card-actions {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  display: grid;
+  gap: 10px;
+  opacity: 0;
+  transition: var(--transition-2);
+}
+
+.shop-card .action-btn {
+  background-color: var(--white);
+  font-size: 24px;
+  padding: 12px;
+  border-radius: 50%;
+  transition: var(--transition-1);
+  box-shadow: 0 4px 8px var(--black_10);
+}
+
+.shop-card .action-btn:is(:hover, :focus) {
+  background-color: var(--hoockers-green);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+.shop-card:is(:hover, :focus-within) .card-actions {
+  opacity: 1;
+  transform: translate(-20px, -50%);
+}
+
+/* Card Content Hover */
+.shop-card .card-content {
+  padding: 24px 20px;
+  text-align: left;
+  transition: var(--transition-1);
+}
+
+/* Category Label */
+.shop-card .card-category {
+  color: var(--spanish-gray);
+  font-size: var(--fs-9);
+  font-weight: var(--fw-600);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  display: block;
+  transition: var(--transition-1);
+}
+
+.shop-card:hover .card-category {
+  color: var(--hoockers-green);
+}
+
+/* Product Title Hover */
+.shop-card .card-title {
+  color: var(--black);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-600);
+  margin-bottom: 8px;
+  line-height: 1.4;
+  transition: var(--transition-1);
+}
+
+.shop-card .card-title:is(:hover, :focus) {
+  color: var(--hoockers-green);
+}
+
+.shop-card:hover .card-title {
+  color: var(--hoockers-green);
+}
+
+/* Collection Label */
+.shop-card .collection-label {
+  font-size: var(--fs-8);
+  color: var(--gray-web);
+  margin-bottom: 16px;
+  display: block;
+  transition: var(--transition-1);
+}
+
+/* Price and Stock Wrapper */
+.shop-card .price-stock-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cultured-2);
+  transition: var(--transition-1);
+}
+
+.shop-card:hover .price-stock-wrapper {
+  border-top-color: var(--hoockers-green_20);
+}
+
+/* Price */
+.shop-card .price {
+  display: block;
+}
+
+.shop-card .price .span {
+  color: var(--black);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-700);
+  transition: var(--transition-1);
+}
+
+.shop-card:hover .price .span {
+  color: var(--hoockers-green);
+}
+
+/* Stock Indicator */
+.shop-card .stock-indicator {
+  font-size: var(--fs-8);
+  color: var(--gray-web);
+  font-weight: var(--fw-500);
+  transition: var(--transition-1);
+}
+
+.shop-card:hover .stock-indicator {
+  color: var(--black);
+}
+
+/* Remove old rating styles if they exist */
+.shop-card .card-rating {
+  display: none;
+}
+
+/* Old center-aligned content - override to left */
+.shop-card .card-content {
+  text-align: left;
+}
+
+/* Additional smooth transitions for all card elements */
+.shop-card * {
+  transition: var(--transition-1);
+}

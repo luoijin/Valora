@@ -1,0 +1,325 @@
+  .reviews-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      color: var(--gray-web);
+      margin-bottom: 10px;
+    }
+
+    .product-info-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--black_10);
+      margin-bottom: 40px;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .product-image-review {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .product-details-review {
+      flex: 1;
+    }
+
+    .product-name-review {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-web);
+      margin-bottom: 10px;
+    }
+
+    .product-category-review {
+      color: var(--spanish-gray);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .rating-summary {
+      background: var(--cultured-1);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .average-rating {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--hoockers-green);
+      margin-bottom: 10px;
+    }
+
+    .stars-large {
+      font-size: 2rem;
+      color: #fbbf24;
+      margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .stars-large ion-icon {
+    display: inline-block;
+    }
+
+    .total-reviews {
+      color: var(--spanish-gray);
+      font-size: 1rem;
+    }
+
+    .review-form-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--black_10);
+      margin-bottom: 40px;
+    }
+
+    .review-form-section h2 {
+      font-size: 1.5rem;
+      color: var(--gray-web);
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: var(--gray-web);
+      margin-bottom: 8px;
+    }
+
+    .rating-input {
+      display: flex;
+      gap: 10px;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      font-size: 2rem;
+    }
+
+    .rating-input input {
+      display: none;
+    }
+
+    .rating-input label {
+      cursor: pointer;
+      color: var(--light-gray);
+      transition: color 0.2s;
+    }
+
+    .rating-input input:checked ~ label,
+    .rating-input label:hover,
+    .rating-input label:hover ~ label {
+      color: #fbbf24;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--hoockers-green);
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-submit-review {
+      background: var(--hoockers-green);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit-review:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--hoockers-green_20);
+    }
+
+    .reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .review-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--black_10);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--black_15);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .reviewer-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--hoockers-green);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .reviewer-details h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gray-web);
+      margin-bottom: 5px;
+    }
+
+    .review-date {
+      font-size: 0.9rem;
+      color: var(--spanish-gray);
+    }
+
+    .review-rating {
+      display: flex;
+      gap: 3px;
+      color: #fbbf24;
+      font-size: 1.2rem;
+    }
+
+    .review-content {
+      color: var(--gray-web);
+      line-height: 1.6;
+      margin-top: 15px;
+    }
+
+    .empty-reviews {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--black_10);
+    }
+
+    .empty-reviews ion-icon {
+      font-size: 60px;
+      color: var(--spanish-gray);
+      margin-bottom: 15px;
+    }
+
+    .empty-reviews h3 {
+      font-size: 1.3rem;
+      color: var(--gray-web);
+      margin-bottom: 10px;
+    }
+
+    .empty-reviews p {
+      color: var(--spanish-gray);
+    }
+
+    .login-prompt {
+      background: var(--cultured-1);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .login-prompt p {
+      margin-bottom: 15px;
+      color: var(--gray-web);
+    }
+
+    .btn-login {
+      background: var(--hoockers-green);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .already-reviewed {
+      background: var(--cultured-1);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      color: var(--gray-web);
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .product-info-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .product-image-review {
+        width: 100%;
+        max-width: 200px;
+        height: 200px;
+      }
+
+      .review-header {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
