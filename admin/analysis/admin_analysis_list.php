@@ -252,7 +252,7 @@ function getTrendIcon($percentage) {
                 <div class="kpi-grid">
                     <div class="kpi-card">
                         <div class="kpi-icon revenue">
-                            <i class="fas fa-dollar-sign"></i>
+                            <i class="fa-solid fa-peso-sign"></i>
                         </div>
                         <div class="kpi-content">
                             <h3>Total Revenue</h3>

@@ -27,7 +27,7 @@
       <div class="input-wrapper">
         <form action="user_search_results.php" method="GET" class="search-form">
           <input 
-            type="search" 
+            type="text" 
             name="q" 
             placeholder="Search product" 
             class="search-field"
@@ -116,7 +116,7 @@
       <div style="padding: 15px 20px;">
         <form action="user_search_results.php" method="GET" class="mobile-search-form">
           <input 
-            type="search" 
+            type="text" 
             name="q" 
             placeholder="Search products..." 
             class="search-field"

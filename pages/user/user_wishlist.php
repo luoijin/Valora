@@ -340,11 +340,9 @@ session_start();
         <div class="wishlist-container">
             <div class="wishlist-header">
                 <h1>
-                    <ion-icon name="heart"></ion-icon>
                     Wishlist
                 </h1>
                 <div class="wishlist-count" id="wishlistCount">
-                    <ion-icon name="heart-outline"></ion-icon>
                     <span>0 items</span>
                 </div>
             </div>
@@ -406,7 +404,6 @@ session_start();
             if (!items.length) {
                 container.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-state-icon">💝</div>
                         <h2>Your Wishlist is Empty</h2>
                         <p>Start adding items you love to your wishlist and keep track of them here.</p>
                         <a href="user_shop_page.php" class="btn-shop-now">

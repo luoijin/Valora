@@ -17,7 +17,7 @@
       <div class="input-wrapper">
         <form action="search_results.php" method="GET" class="search-form">
           <input 
-            type="search" 
+            type="text" 
             name="q" 
             placeholder="Search product" 
             class="search-field"

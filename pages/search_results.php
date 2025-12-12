@@ -49,21 +49,20 @@ if (!empty($searchQuery)) {
         </button>
 
         <!-- FUNCTIONAL SEARCH BAR -->
-        <div class="input-wrapper">
-          <form action="search_results.php" method="GET" class="search-form">
-            <input 
-              type="search" 
-              name="q" 
-              placeholder="Search product" 
-              class="search-field"
-              value="<?php echo htmlspecialchars($searchQuery); ?>"
-              required
-            >
-            <button type="submit" class="search-submit" aria-label="search">
-              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-            </button>
-          </form>
-        </div>
+      <div class="input-wrapper">
+        <form action="search_results.php" method="GET" class="search-form">
+          <input 
+            type="text" 
+            name="q" 
+            placeholder="Search product" 
+            class="search-field"
+            required
+          >
+          <button type="submit" class="search-submit" aria-label="search">
+            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </form>
+      </div>
 
         <a href="home.php" class="logo">
           <img src="../assets/images/logo/valora-logo-text.png" width="179" height="26" alt="Valora">
