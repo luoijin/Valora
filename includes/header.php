@@ -41,26 +41,18 @@
         </button>
 
 
-        <?php if (isset($_SESSION['user_id'])): ?>
-          <button class="header-action-btn btn-valora" aria-label="sign out" onclick="window.location.href='../../process/logout.php'">
-            <span class="btn-text">Logout</span>
-            <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
-          </button>
-        <?php else: ?>
-          <button class="header-action-btn btn-valora" aria-label="sign in" onclick="window.location.href='login.php'">
-            <span class="btn-text">Login</span>
-            <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
-          </button>
-        <?php endif; ?>
+        <button class="header-action-btn btn-valora" aria-label="sign in" onclick="window.location.href='login.php'">
+          <span class="btn-text">Login</span>
+          <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
+        </button>
       </div>
 
       <nav class="navbar">
         <ul class="navbar-list">
           <li><a href="home.php" class="navbar-link has-after">Home</a></li>
           <li><a href="login.php" class="navbar-link has-after smooth-scroll">Collection</a></li>
-          <li><a href="login.php" class="navbar-link has-after">Shop</a></li>
-          <li><a href="login.php" class="navbar-link has-after smooth-scroll">Dress</a></li>
-          <li><a href="login.php" class="navbar-link has-after smooth-scroll">Gown</a></li>
+          <li><a href="home.php#dress" class="navbar-link has-after smooth-scroll">Dress</a></li>
+          <li><a href="home.php#gown" class="navbar-link has-after smooth-scroll">Gown</a></li>
         </ul>
       </nav>
 

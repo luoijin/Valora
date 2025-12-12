@@ -114,7 +114,7 @@ foreach ($products as $product) {
           </button>
 
           <button class="header-action-btn btn-valora" aria-label="sign in" onclick="window.location.href='login.php'">
-            <span class="btn-text">Sign In</span>
+            <span class="btn-text">Login</span>
             <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
           </button>
         </div>
