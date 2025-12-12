@@ -78,11 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_numeric($price) || $price < 0) $errors[] = 'Price must be a valid number';
     if (empty($category)) $errors[] = 'Category is required';
     if (empty($collection)) $errors[] = 'Collection is required';
-    if (!is_numeric($stock_quantity) || $stock_quantity < 0) $errors[] = 'Stock must be a valid number';
 
     // If variations provided, override product stock with sum of variation stocks
     if (!empty($variationRows)) {
         $stock_quantity = $variationStockTotal;
+    } else {
+        $stock_quantity = 0; // No variations means no stock
     }
     
     // Handle image deletion
@@ -168,365 +169,7 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
     <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="../../assets/css/admin_form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Modern Edit Product Styles - Uses admin.css variables for consistency */
-        body {
-            background-color: var(--gray-50);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        }
-        
-        .edit-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        .page-header {
-            background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
-            padding: 28px 32px;
-            border-radius: var(--radius-lg);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        
-        .page-header h1 {
-            color: var(--primary-green);
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .back-link {
-            color: var(--primary-green);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            padding: 10px 16px;
-            border-radius: var(--radius-sm);
-            transition: all var(--transition-base);
-            background: var(--white);
-            border: 2px solid var(--gray-200);
-        }
-        
-        .back-link:hover {
-            background-color: rgba(13, 59, 46, 0.08);
-            border-color: var(--primary-green);
-            transform: translateX(-3px);
-        }
-        
-        .form-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-200);
-            overflow: hidden;
-        }
-        
-        .form-section {
-            padding: 32px;
-            border-bottom: 2px solid var(--gray-100);
-        }
-        
-        .form-section:last-child {
-            border-bottom: none;
-        }
-        
-        .section-title {
-            color: var(--primary-green);
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(13, 59, 46, 0.1);
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .form-grid.single {
-            grid-template-columns: 1fr;
-        }
-        
-        .form-group {
-            margin-bottom: 0;
-        }
-        
-        .form-group label {
-            display: block;
-            color: var(--gray-700);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .required-star {
-            color: var(--danger);
-            font-weight: 700;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius-md);
-            font-size: 15px;
-            background-color: var(--white);
-            color: var(--gray-900);
-            transition: all var(--transition-base);
-            font-family: inherit;
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-            line-height: 1.6;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-green);
-            box-shadow: 0 0 0 3px rgba(13, 59, 46, 0.1);
-        }
-        
-        .form-hint {
-            display: block;
-            margin-top: 6px;
-            font-size: 13px;
-            color: var(--gray-500);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .image-upload-section {
-            background: var(--gray-50);
-            padding: 24px;
-            border-radius: var(--radius-md);
-            border: 2px dashed var(--gray-300);
-            text-align: center;
-            transition: all var(--transition-base);
-        }
-        
-        .image-upload-section:hover {
-            border-color: var(--primary-green);
-            background: rgba(13, 59, 46, 0.02);
-        }
-        
-        .image-upload-section input[type="file"] {
-            border: none;
-            padding: 0;
-            background: transparent;
-            cursor: pointer;
-        }
-        
-        .current-image-preview {
-            margin-top: 20px;
-            padding: 20px;
-            background: var(--white);
-            border-radius: var(--radius-md);
-            border: 2px solid var(--gray-200);
-            position: relative;
-        }
-        
-        .current-image-preview img {
-            max-width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .delete-image-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
-            color: var(--white);
-            padding: 10px 18px;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-            transition: all var(--transition-base);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .delete-image-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-        }
-        
-        .form-actions {
-            padding: 24px 32px;
-            background: var(--gray-50);
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-        
-        .btn-submit {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
-            color: var(--white);
-            padding: 14px 32px;
-            border-radius: var(--radius-md);
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            box-shadow: 0 2px 8px rgba(13, 59, 46, 0.25);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(13, 59, 46, 0.35);
-        }
-        
-        .btn-cancel {
-            background: var(--white);
-            color: var(--gray-700);
-            padding: 14px 32px;
-            border-radius: var(--radius-md);
-            border: 2px solid var(--gray-300);
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-cancel:hover {
-            background: var(--gray-100);
-            border-color: var(--gray-400);
-        }
-        
-        .errors-alert {
-            background: linear-gradient(135deg, var(--danger-light) 0%, #fef2f2 100%);
-            border: 2px solid #fecaca;
-            border-left: 5px solid var(--danger);
-            padding: 20px 24px;
-            border-radius: var(--radius-md);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .errors-alert-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--danger-dark);
-            font-weight: 700;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-        
-        .errors-alert ul {
-            margin: 0;
-            padding-left: 28px;
-            color: var(--danger-dark);
-        }
-        
-        .errors-alert li {
-            margin: 6px 0;
-            font-weight: 500;
-        }
-        
-        .success-alert {
-            background: linear-gradient(135deg, var(--success-light) 0%, #ecfdf5 100%);
-            border: 2px solid var(--accent-green-light);
-            border-left: 5px solid var(--success);
-            padding: 16px 24px;
-            border-radius: var(--radius-md);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--success-dark);
-            font-weight: 600;
-        }
-        
-        .input-icon {
-            color: var(--gray-400);
-            font-size: 12px;
-        }
-        
-        @media (max-width: 768px) {
-            .edit-container {
-                padding: 0 15px;
-                margin: 20px auto;
-            }
-            
-            .page-header {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 20px;
-            }
-            
-            .page-header h1 {
-                font-size: 22px;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-section {
-                padding: 24px 20px;
-            }
-            
-            .form-actions {
-                flex-direction: column-reverse;
-                padding: 20px;
-            }
-            
-            .btn-submit,
-            .btn-cancel {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .delete-image-btn {
-                position: static;
-                margin-top: 12px;
-                display: inline-flex;
-            }
-        }
-    </style>
-</head>
+   </head>
 <body>
     <div class="edit-container">
         <a href="admin_product_list.php" class="back-link">
@@ -612,13 +255,28 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
                         </div>
                         
                         <div class="form-group">
-                            <label for="stock_quantity">
+                            <label>
                                 <i class="fas fa-boxes input-icon"></i>
-                                Stock Quantity
+                                Total Stock Quantity
                             </label>
-                            <input type="number" id="stock_quantity" name="stock_quantity" min="0" 
-                                   value="<?php echo htmlspecialchars($product['stock_quantity']); ?>" 
-                                   placeholder="0">
+                            <div class="stock-display">
+                                <i class="fas fa-calculator"></i>
+                                <span>Auto-calculated:</span>
+                                <span class="stock-value" id="total-stock-display">
+                                    <?php 
+                                        $currentTotal = 0;
+                                        foreach ($existingVariations as $v) {
+                                            $currentTotal += max(0, (int)($v['stock'] ?? $v['stock_quantity'] ?? 0));
+                                        }
+                                        echo $currentTotal;
+                                    ?>
+                                </span>
+                                <span>units</span>
+                            </div>
+                            <span class="form-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Automatically calculated from variation stocks below
+                            </span>
                         </div>
                     </div>
                     
@@ -690,7 +348,7 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
                                                 <input type="text" name="var_size[]" value="<?php echo htmlspecialchars($row['size'] ?? ''); ?>" placeholder="e.g. S" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
                                             </td>
                                             <td style="padding:8px;">
-                                                <input type="number" min="0" name="var_stock[]" value="<?php echo htmlspecialchars($row['stock'] ?? $row['stock_quantity'] ?? ''); ?>" placeholder="0" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
+                                                <input type="number" min="0" name="var_stock[]" class="variation-stock-input" value="<?php echo htmlspecialchars($row['stock'] ?? $row['stock_quantity'] ?? ''); ?>" placeholder="0" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
                                             </td>
                                             <td style="padding:8px;">
                                                 <input type="number" min="0" step="0.01" name="var_price[]" value="<?php echo htmlspecialchars($row['price'] ?? ''); ?>" placeholder="Use base price" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
@@ -768,6 +426,26 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
         document.getElementById('file-name').textContent = fileName ? `Selected: ${fileName}` : '';
     });
 
+    // Function to update total stock display
+    function updateTotalStock() {
+        const stockInputs = document.querySelectorAll('.variation-stock-input');
+        let total = 0;
+        
+        stockInputs.forEach(input => {
+            const value = parseInt(input.value) || 0;
+            total += Math.max(0, value);
+        });
+        
+        document.getElementById('total-stock-display').textContent = total;
+    }
+
+    // Update stock total when stock inputs change
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('variation-stock-input')) {
+            updateTotalStock();
+        }
+    });
+
     // Variation rows
     const variationBody = document.getElementById('variation-rows');
     document.getElementById('add-variation-row').addEventListener('click', () => {
@@ -780,7 +458,7 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
                 <input type="text" name="var_size[]" placeholder="e.g. S" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
             </td>
             <td style="padding:8px;">
-                <input type="number" min="0" name="var_stock[]" placeholder="0" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
+                <input type="number" min="0" name="var_stock[]" class="variation-stock-input" placeholder="0" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
             </td>
             <td style="padding:8px;">
                 <input type="number" min="0" step="0.01" name="var_price[]" placeholder="Use base price" style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;">
@@ -790,6 +468,7 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
             </td>
         `;
         variationBody.appendChild(tr);
+        updateTotalStock();
     });
 
     variationBody.addEventListener('click', (e) => {
@@ -797,6 +476,7 @@ $collections = ['Bridal Studio', 'Fall Bridal', 'Summer Bridal'];
             const row = e.target.closest('tr');
             if (row && variationBody.children.length > 1) {
                 row.remove();
+                updateTotalStock();
             }
         }
     });
